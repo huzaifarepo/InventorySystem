@@ -1,0 +1,276 @@
+.sidebar-container {
+  display: flex;
+  height: 100vh;
+  background: #f9f9f9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sidebar {
+  width: 250px;
+  background: linear-gradient(180deg, #4a90e2, #003c8f);
+  color: white;
+  padding: 20px;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  padding-bottom: 10px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 12px 20px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.sidebar li:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(5px);
+}
+
+.sidebar li.active {
+  background: rgba(255, 255, 255, 0.4);
+  font-weight: bold;
+}
+
+.main-content {
+  flex: 1;
+  padding: 40px;
+}
+
+.options-list {
+  list-style: none;
+  padding: 0;
+  width: 200px;
+}
+
+.options-list li {
+  padding: 12px 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+  transition: background-color 0.3s;
+}
+
+.options-list li:hover {
+  background-color: yellow;
+}
+
+.options-list li.highlight {
+  background: #e8f0fe;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #1a73e8;
+}
+
+.info-card {
+  background-color: #2a67e3;
+  color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.info-card h2 {
+  margin: 0;
+}
+
+.info-card p {
+  margin: 5px 0 0;
+}
+
+.buttons button {
+  background: #fff;
+  color: #2a67e3;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  margin-left: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.buttons button:hover {
+  background: #f0f0f0;
+}
+
+.heading-name {
+  margin-top: -10px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.product-card {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 400px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.product-card h3 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.product-card form label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: bold;
+}
+
+.product-card form input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-buttons {
+  grid-column: span 2;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.form-buttons button {
+  padding: 8px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.form-buttons button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.form-buttons button[type="button"] {
+  background-color: #f44336;
+  color: white;
+}
+/* Add this to your MainScreen.css file */
+
+/* Container for the table with fixed height and scrollable content */
+.table-container {
+  max-height: 400px; /* Adjust the height as needed */
+  overflow-y: auto; /* This makes the table content scrollable */
+  margin-top: 20px; /* Optional: space from the top */
+  border: 1px solid #ddd; /* Optional: border to define the table area */
+  padding: 10px; /* Optional: padding around the table */
+  border-radius: 8px; /* Optional: rounded corners */
+  background-color: #fff; /* Optional: background color */
+}
+
+/* Styling for the table */
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* This ensures the table cells maintain consistent width */
+}
+
+/* Table headers styling */
+.product-table th {
+  background-color: #f4f4f4;
+  text-align: left;
+  padding: 10px;
+}
+
+/* Table rows styling */
+.product-table td {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Styling for table rows on hover */
+.product-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+
+.edit-btn {
+  background: none;
+  border: none;
+  color: #16a34a; /* green-600 */
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0;
+  margin-right: 10px;
+  text-decoration: underline;
+}
+
+.edit-btn:hover {
+  color: #15803d; /* darker green */
+}
+.product-table th,
+.product-table td {
+  text-align: center; 
+  padding: 8px; 
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  color: #dc2626; /* red-600 */
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.delete-btn:hover {
+  color: #b91c1c; /* darker red */
+}
