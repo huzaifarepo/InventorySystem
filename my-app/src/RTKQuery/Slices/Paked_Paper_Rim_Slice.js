@@ -15,7 +15,15 @@ export const packedPaperRimsApi = createApi({
     getPackedPaperRims: builder.query({
       query: () => '/api/packed-paper-rims', // Assuming same endpoint for GET
     }),
+    // Update an existing product
+    updatePackedPaperRim: builder.mutation({
+      query: ({ id, ...updatedData }) => ({
+        url: `/api/update/${id}`,
+        method: 'PUT',
+        body: updatedData,
+      }),
+    }),
   }),
 });
 
-export const { useSavePackedPaperRimMutation, useGetPackedPaperRimsQuery  } = packedPaperRimsApi;
+export const { useSavePackedPaperRimMutation, useGetPackedPaperRimsQuery,useUpdatePackedPaperRimMutation  } = packedPaperRimsApi;
