@@ -9,10 +9,12 @@ router.post('/api/packed-paper-rims', (req, res) => {
 
   try {
     const stmt = db.prepare(`
-      INSERT INTO packed_paper_rims (productName, size, gram, quantity, customer, inUse, remaining)
-      VALUES (?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO packed_paper_rims (productName, size, gram, quantity, customer, inUse, remaining,EntryTime)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `);
-    stmt.run(productName, size, gram, quantity, customer, inUse, remaining);
+    const now = new Date();
+    const EntryTime = now.toLocaleString('sv-SE', { timeZone: 'Asia/Karachi' });
+    stmt.run(productName, size, gram, quantity, customer, inUse, remaining,EntryTime);
 
     res.status(201).json({ message: 'Product saved successfully' });
   } catch (err) {

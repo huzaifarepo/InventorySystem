@@ -36,7 +36,7 @@ db.exec(`
     customer TEXT NOT NULL,
     inUse INTEGER NOT NULL,
     remaining INTEGER NOT NULL,
-    EntryTime TEXT DEFAULT CURRENT_TIMESTAMP
+    EntryTime TEXT NOT NULL
   )
 `);
 

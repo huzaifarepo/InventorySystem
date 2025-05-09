@@ -274,3 +274,8 @@
 .delete-btn:hover {
   color: #b91c1c; /* darker red */
 }
+.product-table th:nth-child(9),  /* Targeting the header of the "Time" column */
+.product-table td:nth-child(9) {  /* Targeting the cells of the "Time" column */
+  width: 94px;  /* Adjust the width value as needed */
+}
+
