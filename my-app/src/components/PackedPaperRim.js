@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
-import html2pdf from 'html2pdf.js';
+import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";
 import '../componenet_styling/MainScreen.css';
 import {
   useSavePackedPaperRimMutation,
@@ -79,10 +80,8 @@ function PackedPaperRim() {
     try {
       if (isEditMode && editingProduct) {
         await updateProduct({ id: editingProduct.id, ...formData }).unwrap();
-        console.log('Product updated:', formData);
       } else {
         await saveProduct(formData).unwrap();
-        console.log('Product created:', formData);
       }
       setShowForm(false);
       setEditingProduct(null);
@@ -100,18 +99,56 @@ function PackedPaperRim() {
       console.error('Error saving/updating product:', err);
     }
   };
+const handleDownloadPDF = () => {
+  const date = new Date().toISOString().split('T')[0];
+  const doc = new jsPDF('landscape', 'pt', 'a4');
 
-  const handleDownloadPDF = () => {
-    const element = tableRef.current;
-    const opt = {
-      margin: 0.5,
-      filename: 'packed-paper-rims.pdf',
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
-    };
-    html2pdf().from(element).set(opt).save();
-  };
+  // Add title
+  doc.setFontSize(18);
+  doc.text("Packed Paper Rims", 40, 40);
+
+  // Get table reference
+  const tableElement = tableRef.current;
+
+  // Get all headers
+  const allHeaders = Array.from(tableElement.querySelectorAll("thead th")).map(th => th.textContent.trim());
+
+  // Find index of "Action" column (case-insensitive)
+  const actionIndex = allHeaders.findIndex(h => h.toLowerCase() === 'actions');
+
+  // Filter headers (remove "Action")
+  const headers = allHeaders.filter((_, i) => i !== actionIndex);
+
+  // Get all rows and remove "Action" cell from each
+  const rows = Array.from(tableElement.querySelectorAll("tbody tr"));
+  const data = rows.map(row => {
+    const cells = Array.from(row.querySelectorAll("td")).map(td => td.textContent.trim());
+    return cells.filter((_, i) => i !== actionIndex);
+  });
+
+  // Generate table
+  autoTable(doc, {
+    startY: 60,
+    head: [headers],
+    body: data,
+    styles: {
+      fontSize: 10,
+      cellPadding: 4,
+      halign: 'center',
+    },
+    headStyles: {
+      fillColor: [22, 160, 133],
+      textColor: 255,
+      fontStyle: 'bold',
+    },
+    theme: 'striped',
+  });
+
+  doc.save(`packed-paper-rims-${date}.pdf`);
+};
+
+
+
 
   return (
     <div className="sidebar-container">
@@ -161,7 +198,7 @@ function PackedPaperRim() {
                   <th>In Use</th>
                   <th>Remaining</th>
                   <th>Time</th>
-                  <th>Actions</th>
+                  <th className="no-print">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -175,10 +212,8 @@ function PackedPaperRim() {
                     <td>{item.customer}</td>
                     <td>{item.inUse}</td>
                     <td>{item.remaining}</td>
-                    <td className="entryincrease">
-                      {new Date(item.EntryTime).toLocaleDateString('en-CA')}
-                    </td>
-                    <td>
+                    <td>{new Date(item.EntryTime).toLocaleDateString('en-CA')}</td>
+                    <td className="no-print">
                       <button className="edit-btn" onClick={() => handleEditProductClick(item)}>Edit</button>
                       <button className="delete-btn">Delete</button>
                     </td>

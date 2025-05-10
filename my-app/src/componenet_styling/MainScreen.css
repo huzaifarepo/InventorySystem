@@ -279,3 +279,8 @@
   width: 94px;  /* Adjust the width value as needed */
 }
 
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
