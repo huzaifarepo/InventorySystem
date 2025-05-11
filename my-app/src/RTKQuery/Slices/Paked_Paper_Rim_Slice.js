@@ -23,7 +23,14 @@ export const packedPaperRimsApi = createApi({
         body: updatedData,
       }),
     }),
+
+    deletePackedPaperRim: builder.mutation({
+      query: (id) => ({
+        url: `/api/delete/${id}`,
+        method: 'DELETE',
+      }),
+    }),
   }),
 });
 
-export const { useSavePackedPaperRimMutation, useGetPackedPaperRimsQuery,useUpdatePackedPaperRimMutation  } = packedPaperRimsApi;
+export const { useSavePackedPaperRimMutation, useGetPackedPaperRimsQuery,useUpdatePackedPaperRimMutation, useDeletePackedPaperRimMutation }  = packedPaperRimsApi;

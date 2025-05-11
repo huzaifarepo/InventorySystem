@@ -56,5 +56,31 @@ router.put('/api/update/:id', (req, res) => {
   }
 });
 
+router.delete('/api/delete/:id', (req, res) => {
+  const { id } = req.params;
+
+  const sql = `DELETE FROM packed_paper_rims WHERE id = ?`;
+
+  try {
+    // Preparing and running the SQL query
+    const stmt = db.prepare(sql);
+    const info = stmt.run(id);
+
+    // Checking if any row was deleted
+    if (info.changes === 0) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    res.status(200).json({ message: 'Product deleted successfully' });
+  } catch (err) {
+    console.error('Error deleting product:', err);
+    res.status(500).json({ message: 'Server error', error: err.message });
+  }
+});
+
+
+
+
+
 module.exports = router;
 

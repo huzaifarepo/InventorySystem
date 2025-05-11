@@ -4,12 +4,14 @@ import { store } from '../src/RTKQuery/store/store'; // Import your Redux store
 import Login from './components/Login';
 import Sidebar from './components/MainScreen';
 import PackedPaperRim from './components/PackedPaperRim';
+import { ToastContainer } from 'react-toastify';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 
 function App() {
   return (
     <Provider store={store}>
+      <ToastContainer position="top-right" autoClose={3000} />
       <Router>
         <Routes>
           <Route path="/" element={<Login />} />
