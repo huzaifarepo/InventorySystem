@@ -123,7 +123,7 @@ function PackedPaperRim() {
   };
   const handleDownloadPDF = () => {
     const date = new Date().toISOString().split('T')[0];
-    const doc = new jsPDF('landscape', 'pt', 'a4');
+    const doc = new jsPDF('portrait', 'pt', 'a4');
 
     // Add title
     doc.setFontSize(18);
@@ -174,17 +174,6 @@ function PackedPaperRim() {
 
   return (
     <div className="sidebar-container">
-      <div className="sidebar">
-        <h2>Inventory Options</h2>
-        <ul className="options-list">
-          <li className="highlight">Packed Paper Rims</li>
-          <li>Rolled Paper Rim</li>
-          <li>Packed Card</li>
-          <li>Paper Rim Title Card</li>
-          <li>Final Goods</li>
-        </ul>
-      </div>
-
       <div className="main-content">
         <div className="header">
           <h1 className="heading-name">Packed Paper Rims</h1>

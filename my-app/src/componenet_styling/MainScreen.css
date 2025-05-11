@@ -9,7 +9,9 @@
   width: 250px;
   background: linear-gradient(180deg, #4a90e2, #003c8f);
   color: white;
+   min-width: 200px;
   padding: 20px;
+  flex-shrink: 0;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -47,30 +49,22 @@
 .main-content {
   flex: 1;
   padding: 40px;
+  min-width: 0;  
+  
+  overflow-x: auto; 
 }
 
-.options-list {
-  list-style: none;
-  padding: 0;
-  width: 200px;
-}
-
-.options-list li {
-  padding: 12px 10px;
-  cursor: pointer;
-  border-bottom: 1px solid #ddd;
-  transition: background-color 0.3s;
-}
-
-.options-list li:hover {
-  background-color: yellow;
-}
-
-.options-list li.highlight {
-  background: #e8f0fe;
+.options-list li a {
+  text-decoration: none;
+  color: inherit; /* Inherit color from li by default */
   font-weight: bold;
-  text-decoration: underline;
-  color: #1a73e8;
+}
+
+.options-list li.selected {
+  background-color: #007bff;
+  color: white;
+   text-decoration: none;
+  font-weight: bold;
 }
 
 .info-card {
@@ -109,7 +103,7 @@
 }
 
 .heading-name {
-  margin-top: -10px;
+  margin-top: -52px;
 }
 
 .overlay {
@@ -206,7 +200,8 @@
 /* Container for the table with fixed height and scrollable content */
 .table-container {
   max-height: 400px; /* Adjust the height as needed */
-  overflow-y: auto; /* This makes the table content scrollable */
+  overflow-y: auto; 
+  overflow-x: auto;/* This makes the table content scrollable */
   margin-top: 20px; /* Optional: space from the top */
   border: 1px solid #ddd; /* Optional: border to define the table area */
   padding: 10px; /* Optional: padding around the table */
@@ -218,7 +213,7 @@
 .product-table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed; /* This ensures the table cells maintain consistent width */
+  table-layout: auto; /* This ensures the table cells maintain consistent width */
 }
 
 /* Table headers styling */
@@ -283,4 +278,7 @@
   .no-print {
     display: none !important;
   }
+}
+.rolled-container {
+  height: 100vh;
 }

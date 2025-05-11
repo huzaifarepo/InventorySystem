@@ -1,30 +1,32 @@
-
-import '../componenet_styling/MainScreen.css'; // Import the CSS for styling
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-
+import { Outlet } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function Sidebar() {
-  const navigate = useNavigate();
+  const location = useLocation();
+
+  const isActive = (path) => location.pathname === path;
+
   return (
     <div className="sidebar-container">
       <div className="sidebar">
         <h2>Inventory Options</h2>
         <ul className="options-list">
-          <li onClick={() => navigate('/FirstOption')}>Packed Paper Rims</li>
-          <li>Rolled Paper Rim</li>
-          <li>Packed Card</li>
-          <li>Paper Rim Title Card</li>
-          <li>Final Goods</li>
+          {/* Use Link to navigate to routes */}
+          <li className={isActive('/dashboard/FirstOption') ? 'selected' : ''}>
+            <Link to="/dashboard/FirstOption">Packed Paper Rims</Link>
+          </li>
+          <li className={isActive('/dashboard/SecondOption') ? 'selected' : ''}>
+            <Link to="/dashboard/SecondOption">Rolled Paper Rim</Link>
+          </li>
+          {/* Add other options if needed */}
         </ul>
       </div>
       <div className="main-content">
-        <h1>Welcome to Dashboard</h1>
-        <p>Select an option from the sidebar to view details.</p>
+       <Outlet /> 
       </div>
     </div>
   );
 }
 
 export default Sidebar;
-
