@@ -10,9 +10,9 @@ import {
     useGetRolledPaperRimsQuery,
     useUpdateRolledPaperRimMutation,
     useDeleteRolledPaperRimMutation,
-} from '../RTKQuery/Slices/Packed_Card_Rim_Slice';
+} from '../RTKQuery/Slices/Title_Card_Rim_Slice';
 
-function PackedCardRim() {
+function TitleCardRim() {
     const [showForm, setShowForm] = useState(false);
     const [isEditMode, setIsEditMode] = useState(false);
     const [editingProduct, setEditingProduct] = useState(null);
@@ -20,10 +20,11 @@ function PackedCardRim() {
 
     const [formData, setFormData] = useState({
         productName: '',
-        size: '',
-        type: '',
-        quantity: '',
+        // size: '',
+        // type: '',
         customer: '',
+        quantity: '',
+        description: '',
         // inUse: '',
         // remaining: '',
     });
@@ -32,14 +33,20 @@ function PackedCardRim() {
     const [updateProduct, { isLoading: isUpdating }] = useUpdateRolledPaperRimMutation();
     const { data: products, isLoading: isFetching, isError: fetchError, refetch } = useGetRolledPaperRimsQuery();
     const [deleteItem] = useDeleteRolledPaperRimMutation();
+    const [searchQuery, setSearchQuery] = useState('');
+    const filteredProducts = products?.filter((product) =>
+        product.productName.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     const handleAddProductClick = () => {
         setIsEditMode(false);
         setFormData({
             productName: '',
-            size: '',
-            type: '',
-            quantity: '',
+            // size: '',
+            // type: '',
             customer: '',
+            quantity: '',
+            description: '',
             // inUse: '',
             // remaining: '',
         });
@@ -69,10 +76,11 @@ function PackedCardRim() {
         setEditingProduct(product);
         setFormData({
             productName: product.productName,
-            size: product.size,
-            type: product.type,
-            quantity: product.quantity,
+            //   size: product.size,
+            //   type: product.type,
             customer: product.customer,
+            quantity: product.quantity,
+            description: product.description,
             // inUse: product.inUse,
             // remaining: product.remaining,
         });
@@ -109,10 +117,11 @@ function PackedCardRim() {
             setEditingProduct(null);
             setFormData({
                 productName: '',
-                size: '',
-                type: '',
-                quantity: '',
+                // size: '',
+                // type: '',
                 customer: '',
+                quantity: '',
+                description: '',
                 // inUse: '',
                 // remaining: '',
             });
@@ -127,7 +136,7 @@ function PackedCardRim() {
 
         // Add title
         doc.setFontSize(18);
-        doc.text("Packed Card Rims", 40, 40);
+        doc.text("Title Card Rims", 40, 40);
 
         // Get table reference
         const tableElement = tableRef.current;
@@ -165,11 +174,16 @@ function PackedCardRim() {
                 textColor: 255,
                 fontStyle: 'bold',
             },
-
+            columnStyles: {
+                4: {
+                    cellWidth: 200,
+                    halign: 'left',
+                } // Adjust the width as needed (e.g., 120)
+            },
             theme: "grid",
         });
 
-        doc.save(`packed-card-rims-${date}.pdf`);
+        doc.save(`title-card-rims-${date}.pdf`);
     };
 
 
@@ -179,19 +193,29 @@ function PackedCardRim() {
         <div className="sidebar-container">
             <div className="main-content">
                 <div className="header">
-                    <h1 className="heading-name"> Packed Card Rims</h1>
+                    <h1 className="heading-name"> Title Card Rims</h1>
                 </div>
 
                 <div className="info-card">
                     <div>
-                        <h2>Packed Card Rims</h2>
+                        <h2>Title Card Rims</h2>
                         <p>Manage your product inventory here.</p>
                     </div>
                     <div className="buttons">
                         <button className="add-btn" onClick={handleAddProductClick}>+ Add Product</button>
                         <button className="add-btn" onClick={handleDownloadPDF}>Download PDF</button>
+                        
                     </div>
+                    
                 </div>
+                <input
+                    type="text"
+                    placeholder="Search by product name"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="search-input"
+                />
+
 
                 {/* TABLE START */}
                 <div className="table-container" ref={tableRef}>
@@ -204,11 +228,12 @@ function PackedCardRim() {
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Product Name</th>
-                                    <th>Size</th>
-                                    <th>Type</th>
-                                    <th>Quantity</th>
+                                    <th>School Name</th>
+                                    {/* <th>Size</th>
+                                    <th>Type</th> */}
                                     <th>Customer</th>
+                                    <th>Quantity</th>
+                                    <th>Description</th>
                                     {/* <th>In Use</th> */}
                                     {/* <th>Remaining</th> */}
                                     <th>Time</th>
@@ -216,14 +241,15 @@ function PackedCardRim() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {products?.map((item, index) => (
+                                {filteredProducts?.map((item, index) => (
                                     <tr key={item._id}>
                                         <td>{index + 1}</td>
                                         <td>{item.productName}</td>
-                                        <td>{item.size}</td>
-                                        <td>{item.type}</td>
-                                        <td>{item.quantity}</td>
+                                        {/* <td>{item.size}</td>
+                                        <td>{item.type}</td> */}
                                         <td>{item.customer}</td>
+                                        <td>{item.quantity}</td>
+                                        <td className="description-cell">{item.description}</td>
                                         {/* <td>{item.inUse}</td> */}
                                         {/* <td>{item.remaining}</td> */}
                                         <td>{new Date(item.EntryTime).toLocaleDateString('en-CA')}</td>
@@ -246,25 +272,30 @@ function PackedCardRim() {
                         <h3>{isEditMode ? 'Edit Product' : 'Add New Product'}</h3>
                         <form onSubmit={handleSubmit} className="form-grid">
                             <div className="form-group">
-                                <label>Product Name:</label>
+                                <label>School Name:</label>
                                 <input type="text" name="productName" value={formData.productName} onChange={handleChange} />
                             </div>
-                            <div className="form-group">
+                            {/* <div className="form-group">
                                 <label>Size:</label>
                                 <input type="text" name="size" value={formData.size} onChange={handleChange} />
                             </div>
                             <div className="form-group">
                                 <label>Type:</label>
                                 <input type="text" name="type" value={formData.type} onChange={handleChange} />
+                            </div> */}
+                            <div className="form-group">
+                                <label>Customer:</label>
+                                <input type="text" name="customer" value={formData.customer} onChange={handleChange} />
                             </div>
                             <div className="form-group">
                                 <label>Quantity:</label>
                                 <input type="number" name="quantity" value={formData.quantity} onChange={handleChange} />
                             </div>
                             <div className="form-group">
-                                <label>Customer:</label>
-                                <input type="text" name="customer" value={formData.customer} onChange={handleChange} />
+                                <label>Description:</label>
+                                <input type="text" name="description" value={formData.description} onChange={handleChange} />
                             </div>
+
                             {/* <div className="form-group">
                 <label>In Use:</label>
                 <input type="number" name="inUse" value={formData.inUse} onChange={handleChange} />
@@ -287,5 +318,5 @@ function PackedCardRim() {
     );
 }
 
-export default PackedCardRim;
+export default TitleCardRim;
 

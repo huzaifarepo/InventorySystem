@@ -150,21 +150,24 @@ function PackedPaperRim() {
 
     // Generate table
     autoTable(doc, {
-      startY: 60,
-      head: [headers],
-      body: data,
-      styles: {
-        fontSize: 10,
-        cellPadding: 4,
-        halign: 'center',
-      },
-      headStyles: {
-        fillColor: [22, 160, 133],
-        textColor: 255,
-        fontStyle: 'bold',
-      },
-      theme: 'striped',
-    });
+          startY: 60,
+          head: [headers],
+          body: data,
+          styles: {
+            fontSize: 10,
+            cellPadding: 6,
+            halign: 'center',
+            lineWidth: 0.5, // Increase to 0.5 or 1 for bolder lines
+            lineColor: [22, 160, 133],
+          },
+          headStyles: {
+            fillColor: [22, 160, 133],
+            textColor: 255,
+            fontStyle: 'bold',
+          },
+          
+          theme: "grid",
+        });
 
     doc.save(`packed-paper-rims-${date}.pdf`);
   };

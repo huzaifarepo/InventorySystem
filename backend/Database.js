@@ -13,19 +13,6 @@ db.exec(`
   )
 `);
 
-// Ensure the 'packed_paper_rims' table exists
-// db.exec(`
-//   CREATE TABLE IF NOT EXISTS packed_paper_rims (
-//     id INTEGER PRIMARY KEY AUTOINCREMENT,
-//     productName TEXT,
-//     size TEXT,
-//     gram TEXT,
-//     quantity INTEGER,
-//     customer TEXT,
-//     inUse INTEGER,
-//     remaining INTEGER
-//   )
-// `);
 db.exec(`
   CREATE TABLE IF NOT EXISTS packed_paper_rims (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -60,6 +47,17 @@ db.exec(`
     type TEXT NOT NULL,
     quantity INTEGER NOT NULL,
     customer TEXT NOT NULL,
+    EntryTime TEXT NOT NULL
+  )
+`);
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS title_card_rims (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    productName TEXT NOT NULL,
+    customer TEXT NOT NULL,
+    quantity INTEGER NOT NULL,
+    description TEXT NOT NULL,
     EntryTime TEXT NOT NULL
   )
 `);

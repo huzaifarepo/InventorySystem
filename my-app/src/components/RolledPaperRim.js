@@ -155,15 +155,18 @@ function RolledPaperRim() {
       body: data,
       styles: {
         fontSize: 10,
-        cellPadding: 4,
+        cellPadding: 6,
         halign: 'center',
+        lineWidth: 0.5, // Increase to 0.5 or 1 for bolder lines
+        lineColor: [22, 160, 133],
       },
       headStyles: {
         fillColor: [22, 160, 133],
         textColor: 255,
         fontStyle: 'bold',
       },
-      theme: 'striped',
+      
+      theme: "grid",
     });
 
     doc.save(`rolled-paper-rims-${date}.pdf`);

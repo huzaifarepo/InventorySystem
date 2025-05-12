@@ -6,6 +6,7 @@ import Sidebar from './components/MainScreen'; // This is your layout now
 import PackedPaperRim from './components/PackedPaperRim';
 import RolledPaperRim from './components/RolledPaperRim';
 import PackedCardRim from './components/PackedCardRim';
+import TitleCardRim from './components/TitleCardRims';
 import { ToastContainer } from 'react-toastify';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
@@ -32,6 +33,8 @@ function App() {
             <Route path="FirstOption" element={<PackedPaperRim />} />
             <Route path="SecondOption" element={<RolledPaperRim />} />
             <Route path="ThirdOption" element={<PackedCardRim />} />
+            <Route path="FourthOption" element={<TitleCardRim />} />
+
 
           </Route>
         </Routes>
