@@ -3,13 +3,18 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const Database = require('better-sqlite3');
 const packedPaperRimsRoutes = require('../backend/Routes/Paked_Paper_Rim_Route');
-
+const RolledPaperrimsRoutes= require('./Routes/Rolled_Paper_Rim_Route');
+const PackedCardRimsRoutes = require('./Routes/Packed_Card_Rim_Route');
 const app = express();
 const PORT = 5000;
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(packedPaperRimsRoutes);
+app.use(RolledPaperrimsRoutes);
+app.use(PackedCardRimsRoutes);
+
+
 
 const db = new Database('example.db');
 

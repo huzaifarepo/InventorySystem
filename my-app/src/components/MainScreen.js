@@ -19,7 +19,10 @@ function Sidebar() {
           <li className={isActive('/dashboard/SecondOption') ? 'selected' : ''}>
             <Link to="/dashboard/SecondOption">Rolled Paper Rim</Link>
           </li>
-          {/* Add other options if needed */}
+           <li className={isActive('/dashboard/ThirdOption') ? 'selected' : ''}>
+            <Link to="/dashboard/ThirdOption">Packed Card Rim</Link>
+          </li>
+          
         </ul>
       </div>
       <div className="main-content">

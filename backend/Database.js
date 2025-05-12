@@ -40,6 +40,30 @@ db.exec(`
   )
 `);
 
+db.exec(`
+  CREATE TABLE IF NOT EXISTS rolled_paper_rims (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    productName TEXT NOT NULL,
+    size TEXT NOT NULL,
+    type TEXT NOT NULL,
+    quantity INTEGER NOT NULL,
+    customer TEXT NOT NULL,
+    EntryTime TEXT NOT NULL
+  )
+`);
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS packed_card_rims (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    productName TEXT NOT NULL,
+    size TEXT NOT NULL,
+    type TEXT NOT NULL,
+    quantity INTEGER NOT NULL,
+    customer TEXT NOT NULL,
+    EntryTime TEXT NOT NULL
+  )
+`);
+
 // Insert a fixed user (only if not exists)
 const checkUser = db.prepare('SELECT * FROM Login WHERE username = ?').get('admin');
 if (!checkUser) {

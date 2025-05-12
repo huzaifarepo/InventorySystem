@@ -10,9 +10,9 @@ import {
   useGetRolledPaperRimsQuery,
   useUpdateRolledPaperRimMutation,
   useDeleteRolledPaperRimMutation,
-} from '../RTKQuery/Slices/Rolled_Paper_Rim_Slice';
+} from '../RTKQuery/Slices/Packed_Card_Rim_Slice';
 
-function RolledPaperRim() {
+function PackedCardRim() {
   const [showForm, setShowForm] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
@@ -127,7 +127,7 @@ function RolledPaperRim() {
 
     // Add title
     doc.setFontSize(18);
-    doc.text("Rolled Paper Rims", 40, 40);
+    doc.text("Packed Card Rims", 40, 40);
 
     // Get table reference
     const tableElement = tableRef.current;
@@ -166,7 +166,7 @@ function RolledPaperRim() {
       theme: 'striped',
     });
 
-    doc.save(`rolled-paper-rims-${date}.pdf`);
+    doc.save(`packed-card-rims-${date}.pdf`);
   };
 
 
@@ -176,12 +176,12 @@ function RolledPaperRim() {
     <div className="sidebar-container">
       <div className="main-content">
         <div className="header">
-          <h1 className="heading-name">Rolled Paper Rims</h1>
+          <h1 className="heading-name"> Packed Card Rims</h1>
         </div>
 
         <div className="info-card">
           <div>
-            <h2>Rolled Paper Rims</h2>
+            <h2>Packed Card Rims</h2>
             <p>Manage your product inventory here.</p>
           </div>
           <div className="buttons">
@@ -284,5 +284,5 @@ function RolledPaperRim() {
   );
 }
 
-export default RolledPaperRim;
+export default PackedCardRim;
 
