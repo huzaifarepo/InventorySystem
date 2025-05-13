@@ -24,6 +24,9 @@ function Sidebar() {
           </li>
            <li className={isActive('/dashboard/FourthOption') ? 'selected' : ''}>
             <Link to="/dashboard/FourthOption">Title Card Rim</Link>
+          </li> 
+          <li className={isActive('/dashboard/FifthOption') ? 'selected' : ''}>
+            <Link to="/dashboard/FifthOption">Final Goods</Link>
           </li>
           
         </ul>

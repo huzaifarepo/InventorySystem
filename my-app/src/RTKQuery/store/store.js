@@ -7,6 +7,7 @@ import { packedPaperRimsApi } from '../Slices/Paked_Paper_Rim_Slice'; // Import 
 import { rolledPaperRimsApi } from '../Slices/Rolled_Paper_Rim_Slice';
 import { packedCardRimsApi } from '../Slices/Packed_Card_Rim_Slice';
 import { titleCardRimsApi } from '../Slices/Title_Card_Rim_Slice';
+import { finalGoodApi } from '../Slices/Final_Good_Slice';
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
     [rolledPaperRimsApi.reducerPath]: rolledPaperRimsApi.reducer, // Add the new packedPaperRimsApi reducer
     [packedCardRimsApi.reducerPath]: packedCardRimsApi.reducer, // Add the new packedPaperRimsApi reducer
     [titleCardRimsApi.reducerPath]: titleCardRimsApi.reducer, // Add the new packedPaperRimsApi reducer
+    [finalGoodApi.reducerPath]: finalGoodApi.reducer, // Add the new packedPaperRimsApi reducer
 
 
   },
@@ -25,7 +27,6 @@ export const store = configureStore({
       rolledPaperRimsApi.middleware,
       packedCardRimsApi.middleware,
       titleCardRimsApi.middleware,
-
-
+      finalGoodApi.middleware,
     ),
 });

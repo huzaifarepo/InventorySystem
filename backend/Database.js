@@ -61,6 +61,17 @@ db.exec(`
     EntryTime TEXT NOT NULL
   )
 `);
+db.exec(`
+  CREATE TABLE IF NOT EXISTS final_goods (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    productName TEXT NOT NULL,
+    bundle INTEGER NOT NULL,
+    retail INTEGER NOT NULL,
+    quantity INTEGER NOT NULL,
+    description TEXT NOT NULL,
+    EntryTime TEXT NOT NULL
+  )
+`);
 
 // Insert a fixed user (only if not exists)
 const checkUser = db.prepare('SELECT * FROM Login WHERE username = ?').get('admin');

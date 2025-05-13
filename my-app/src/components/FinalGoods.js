@@ -10,9 +10,9 @@ import {
     useGetRolledPaperRimsQuery,
     useUpdateRolledPaperRimMutation,
     useDeleteRolledPaperRimMutation,
-} from '../RTKQuery/Slices/Title_Card_Rim_Slice';
+} from '../RTKQuery/Slices/Final_Good_Slice';
 
-function TitleCardRim() {
+function FinalGoods() {
     const [showForm, setShowForm] = useState(false);
     const [isEditMode, setIsEditMode] = useState(false);
     const [editingProduct, setEditingProduct] = useState(null);
@@ -22,7 +22,9 @@ function TitleCardRim() {
         productName: '',
         // size: '',
         // type: '',
-        customer: '',
+        // customer: '',
+        bundle: '',
+        retail: '',
         quantity: '',
         description: '',
         // inUse: '',
@@ -33,10 +35,10 @@ function TitleCardRim() {
     const [updateProduct, { isLoading: isUpdating }] = useUpdateRolledPaperRimMutation();
     const { data: products, isLoading: isFetching, isError: fetchError, refetch } = useGetRolledPaperRimsQuery();
     const [deleteItem] = useDeleteRolledPaperRimMutation();
-    const [searchQuery, setSearchQuery] = useState('');
-    const filteredProducts = products?.filter((product) =>
-        product.productName.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    // const [searchQuery, setSearchQuery] = useState('');
+    // const filteredProducts = products?.filter((product) =>
+    //     product.productName.toLowerCase().includes(searchQuery.toLowerCase())
+    // );
 
     const handleAddProductClick = () => {
         setIsEditMode(false);
@@ -44,7 +46,9 @@ function TitleCardRim() {
             productName: '',
             // size: '',
             // type: '',
-            customer: '',
+            // customer: '',
+            bundle: '',
+            retail: '',
             quantity: '',
             description: '',
             // inUse: '',
@@ -78,7 +82,9 @@ function TitleCardRim() {
             productName: product.productName,
             //   size: product.size,
             //   type: product.type,
-            customer: product.customer,
+            // customer: product.customer,
+            bundle: product.bundle,
+            retail: product.retail,
             quantity: product.quantity,
             description: product.description,
             // inUse: product.inUse,
@@ -119,7 +125,9 @@ function TitleCardRim() {
                 productName: '',
                 // size: '',
                 // type: '',
-                customer: '',
+                // customer: '',
+                bundle: '',
+                retail: '',
                 quantity: '',
                 description: '',
                 // inUse: '',
@@ -136,7 +144,7 @@ function TitleCardRim() {
 
         // Add title
         doc.setFontSize(18);
-        doc.text("Title Card Rims", 40, 40);
+        doc.text("Final Goods", 40, 40);
 
         // Get table reference
         const tableElement = tableRef.current;
@@ -159,31 +167,32 @@ function TitleCardRim() {
 
         // Generate table
         autoTable(doc, {
-            startY: 60,
-            head: [headers],
-            body: data,
-            styles: {
-                fontSize: 10,
-                cellPadding: 6,
-                halign: 'center',
-                lineWidth: 0.5, // Increase to 0.5 or 1 for bolder lines
-                lineColor: [22, 160, 133],
-            },
-            headStyles: {
-                fillColor: [22, 160, 133],
-                textColor: 255,
-                fontStyle: 'bold',
-            },
-            columnStyles: {
-                4: {
-                    cellWidth: 200,
-                    halign: 'left',
-                } // Adjust the width as needed (e.g., 120)
-            },
-            theme: "grid",
-        });
+                    startY: 60,
+                    head: [headers],
+                    body: data,
+                    styles: {
+                        fontSize: 10,
+                        cellPadding: 6,
+                        halign: 'center',
+                        lineWidth: 0.5, // Increase to 0.5 or 1 for bolder lines
+                        lineColor: [22, 160, 133],
+                    },
+                    headStyles: {
+                        fillColor: [22, 160, 133],
+                        textColor: 255,
+                        fontStyle: 'bold',
+                    },
+                    columnStyles: {
+                        4: {
+                            cellWidth: 200,
+                            halign: 'left',
+                        } // Adjust the width as needed (e.g., 120)
+                    },
+                    theme: "grid",
+                });
+        
 
-        doc.save(`title-card-rims-${date}.pdf`);
+        doc.save(`final-goods- ${date}.pdf`);
     };
 
 
@@ -193,28 +202,28 @@ function TitleCardRim() {
         <div className="sidebar-container">
             <div className="main-content">
                 <div className="header">
-                    <h1 className="heading-name"> Title Card Rims</h1>
+                    <h1 className="heading-name"> Final Goods</h1>
                 </div>
 
                 <div className="info-card">
                     <div>
-                        <h2>Title Card Rims</h2>
+                        <h2>Final Goods</h2>
                         <p>Manage your product inventory here.</p>
                     </div>
                     <div className="buttons">
                         <button className="add-btn" onClick={handleAddProductClick}>+ Add Product</button>
                         <button className="add-btn" onClick={handleDownloadPDF}>Download PDF</button>
-                        
+
                     </div>
-                    
+
                 </div>
-                <input
+                {/* <input
                     type="text"
                     placeholder="Search by product name"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="search-input"
-                />
+                /> */}
 
                 {/* TABLE START */}
                 <div className="table-container" ref={tableRef}>
@@ -227,10 +236,12 @@ function TitleCardRim() {
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>School Name</th>
+                                    <th>Product Name</th>
                                     {/* <th>Size</th>
                                     <th>Type</th> */}
-                                    <th>Customer</th>
+                                    {/* <th>Customer</th> */}
+                                    <th>Bundle</th>
+                                    <th>Retail</th>
                                     <th>Quantity</th>
                                     <th>Description</th>
                                     {/* <th>In Use</th> */}
@@ -240,13 +251,15 @@ function TitleCardRim() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {filteredProducts?.map((item, index) => (
+                                {products?.map((item, index) => (
                                     <tr key={item._id}>
                                         <td>{index + 1}</td>
                                         <td>{item.productName}</td>
                                         {/* <td>{item.size}</td>
                                         <td>{item.type}</td> */}
-                                        <td>{item.customer}</td>
+                                        {/* <td>{item.customer}</td> */}
+                                        <td>{item.bundle}</td>
+                                        <td>{item.retail}</td>
                                         <td>{item.quantity}</td>
                                         <td className="description-cell">{item.description}</td>
                                         {/* <td>{item.inUse}</td> */}
@@ -271,7 +284,7 @@ function TitleCardRim() {
                         <h3>{isEditMode ? 'Edit Product' : 'Add New Product'}</h3>
                         <form onSubmit={handleSubmit} className="form-grid">
                             <div className="form-group">
-                                <label>School Name:</label>
+                                <label>Product Name:</label>
                                 <input type="text" name="productName" value={formData.productName} onChange={handleChange} />
                             </div>
                             {/* <div className="form-group">
@@ -282,10 +295,18 @@ function TitleCardRim() {
                                 <label>Type:</label>
                                 <input type="text" name="type" value={formData.type} onChange={handleChange} />
                             </div> */}
-                            <div className="form-group">
+                            {/* <div className="form-group">
                                 <label>Customer:</label>
                                 <input type="text" name="customer" value={formData.customer} onChange={handleChange} />
-                            </div>
+                            </div> */}
+                            <div className="form-group">
+                                <label>Bundle:</label>
+                                <input type="number" name="bundle" value={formData.bundle} onChange={handleChange} />
+                            </div> 
+                            <div className="form-group">
+                                <label>Retail:</label>
+                                <input type="number" name="retail" value={formData.retail} onChange={handleChange} />
+                            </div> 
                             <div className="form-group">
                                 <label>Quantity:</label>
                                 <input type="number" name="quantity" value={formData.quantity} onChange={handleChange} />
@@ -317,5 +338,5 @@ function TitleCardRim() {
     );
 }
 
-export default TitleCardRim;
+export default FinalGoods;
 
